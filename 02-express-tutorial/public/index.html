@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample</title>
+    <script>
+      async function fetchProducts() {
+        try {
+          let products = await fetch("/api/v1/products");
+          let data = await products.text();
+          const dataDiv = document.querySelector("#data");
+          dataDiv.innerText = data;
+        } catch (error) {
+          console.log("There was an error fetching the data: " + error);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Sample Page</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam facere
+      dolor quod consectetur hic accusantium inventore expedita eligendi aperiam
+      beatae corrupti deleniti, soluta mollitia quia architecto sunt ut, cum
+      voluptate?
+    </p>
+    <button onclick="fetchProducts()">Fetch products</button>
+    <div id="data"></div>
+  </body>
+</html>
