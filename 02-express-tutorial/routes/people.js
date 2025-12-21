@@ -8,23 +8,7 @@ const {
   deletePerson,
 } = require("../controllers/people.js");
 
-router.get("/", (req, res) => {
-  getPeople(req, res);
-});
-
-router.get("/:id", (req, res) => {
-  findPerson(req, res);
-});
-router.post("/", (req, res) => {
-  addPerson(req, res);
-});
-
-router.put("/:id", (req, res) => {
-  replacePerson(req, res);
-});
-
-router.delete("/:id", (req, res) => {
-  deletePerson(req, res);
-});
+router.route("/").get(getPeople).post(addPerson);
+router.route("/:id").get(findPerson).put(replacePerson).delete(deletePerson);
 
 module.exports = router;
