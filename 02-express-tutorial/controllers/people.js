@@ -1,7 +1,7 @@
 const { people } = require("../data");
 
 function getPeople(req, res) {
-  res.json(people);
+  res.json({ success: true, data: people });
 }
 
 function addPerson(req, res) {
@@ -15,8 +15,9 @@ function addPerson(req, res) {
 
 function findPerson(req, res) {
   const id = req.params.id;
-  if (people.find((person) => person.id === Number(id))) {
-    res.status(200).json(people.find((person) => person.id === Number(id)));
+  const person = people.find((person) => person.id === Number(id));
+  if (person) {
+    res.status(200).json(person);
   } else {
     res
       .status(404)
@@ -28,7 +29,7 @@ function replacePerson(req, res) {
   const { id } = req.params;
   const { name } = req.body;
   const person = people.find((person) => person.id === Number(id));
-  if (person) {
+  if (person && name) {
     people.splice(people.indexOf(person), 1, { ...person, name });
     res.status(200).json({ ...person, name });
   } else {
