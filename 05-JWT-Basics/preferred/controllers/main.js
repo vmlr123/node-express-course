@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { BadRequestError, InternalError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const logon = async (req, res) => {
@@ -7,7 +6,6 @@ const logon = async (req, res) => {
     res
       .status(StatusCodes.BAD_REQUEST)
       .json({ message: "Please provide name and password." });
-    throw new BadRequestError("Please provide name and password.");
   }
   const { name, password } = req.body;
 
@@ -15,7 +13,6 @@ const logon = async (req, res) => {
     res
       .status(StatusCodes.BAD_REQUEST)
       .json({ message: "Please provide name and password." });
-    throw new BadRequestError("Please provide name and password.");
   }
   if (
     name.length <= 0 ||
@@ -27,9 +24,6 @@ const logon = async (req, res) => {
       message:
         "Invalid name and/or password. Name and password must be between 1 and 30 characters each.",
     });
-    throw new BadRequestError(
-      "Invalid name and/or password. Name and password must be between 1 and 30 characters each.",
-    );
   }
   jwt.sign(
     { name },
@@ -42,7 +36,6 @@ const logon = async (req, res) => {
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: "Internal server error." });
-        throw new InternalError("Internal server error.");
       }
       res.status(200).json({ token: token });
     },
